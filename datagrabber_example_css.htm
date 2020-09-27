@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<!-- HTML file head: web page metadata -->
+	<head>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<title>HTML/JavaScript/CSS (Boostrap) examples</title>
+		<!-- jQuery -->
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+		
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+		
+		<!-- Chart.js library -->
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+		
+		<script type="text/javascript" src="scripts/datagrabber_example.js"></script> 
+		<link rel="stylesheet" type="text/css" href="styles/datagrabber_example_css.css">
+		
+		
+
+		<!-- Bootstrap CSS CDN -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<!-- Our Custom CSS -->
+		<link rel="stylesheet" href="style5.css">
+		<!--https://jqueryui.com/slider/#colorpicker -->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+
+			
+	</head>
+
+	<!-- HTML file body: web page content -->
+	<body class="ui-widget-content" style="border:0;">
+		
+	
+ 
+		<h1 class="text-center">Data Grabber From Sense Hat</h1>
+		<div class="wrapper">
+			<!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Menu</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <p>RASPBERRY tools</p>
+                    <li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Exercise</a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+							<li><a href="#" id="menu">Menu</a></li>
+                            <li><a href="#" id="exercise1">Exercise 1</a></li>
+							<li><a href="#" id="exercise2">Exercise 2</a></li>
+							<li><a href="#" id="exercise3">Exercise 3</a></li>
+                        </ul>
+                    </li>
+                    <li>						
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Tools</a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li><a href="#">Server IP</a></li>
+                            <li><a href="#">Port Address</a></li>
+                            <li><a href="#">Sample time</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+			</nav>
+
+			
+			<!--location of content-->
+			<div id="content">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+								<span></span>
+								<span></span>
+                            </button>
+                        </div>
+                    </div>
+				</nav>
+			<!--location of content-->	
+
+			<!--logo raspberry -->
+			<div id="logo">
+				<img src="Raspberry-Pi-logo.png"  width= 80%/>
+			</div>	
+			<!--logo raspberry -->
+
+
+			<!-- Chart activities -->	
+			
+			<!--TEMP HUM PRESS-->
+			<div id="datagrabber" class="container border border-primary rounded datagrabber">
+				<ul class="nav">
+				<li><button id="start" type="button" class="btn btn-primary menuitem">Start</button></li>
+				<li><button id="stop" type="button" class="btn btn-primary menuitem">Stop</button></li>
+				<li><div class="border border-primary rounded menuitem"><span>Sample time: <span id="sampletime"></span> ms</span></div></li>  
+				<li><div class="border border-primary rounded menuitem"><span>Max. number of samples: <span id="samplenumber"></span></span></div></li>  
+				</ul>
+				<div class="chartcontainer">
+					<canvas id="chart"></canvas>
+				</div>
+			</div>
+
+			<!--RPY-->
+			<div id="datagrabber2" class="container border border-primary rounded datagrabber">
+				<ul class="nav">
+				<li><button id="start2" type="button" class="btn btn-primary menuitem">Start</button></li>
+				<li><button id="stop2" type="button" class="btn btn-primary menuitem">Stop</button></li>
+				<li><div class="border border-primary rounded menuitem"><span>Sample time: <span id="sampletime2"></span> ms</span></div></li>  
+				<li><div class="border border-primary rounded menuitem"><span>Max. number of samples: <span id="samplenumber2"></span></span></div></li>  
+				</ul>
+				<div class="chartcontainer">
+					<canvas id="chart2"></canvas>
+				</div>
+			</div>
+
+			<!--JOY-->
+			<div id="datagrabber3" class="container border border-primary rounded datagrabber">
+				<ul class="nav">
+				<li><button id="start3" type="button" class="btn btn-primary menuitem">Start</button></li>
+				<li><button id="stop3" type="button" class="btn btn-primary menuitem">Stop</button></li>
+				<li><div class="border border-primary rounded menuitem"><span>Sample time: <span id="sampletime3"></span> ms</span></div></li>  
+				<li><div class="border border-primary rounded menuitem"><span>Max. number of samples: <span id="samplenumber3"></span></span></div></li>  
+				</ul>
+				<div class="chartcontainer">
+					<canvas id="chart3"></canvas>
+				</div>
+			</div>
+
+			<!-- Chart activities -->	
+
+			<!--led display -->
+			<div id="led">
+
+				<form method="post" action= "<?php echo $_SERVER['PHP_SELF'];?>" >
+					<!-- Name: <input type="text" name="fname">
+					<input type="submit"> -->
+					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
+					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
+					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
+					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
+					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
+					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
+
+			</div>
+			<!--led display -->
+			<!--Settings-->
+			<div id="settings">
+				
+			</div>
+			<!--Settings-->
+
+		</div>
+		<!-- Bootstrap Js CDN -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+		<!-- jQuery CDN -->
+		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+		
+	</body>
+</html>
