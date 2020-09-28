@@ -517,7 +517,7 @@ function generateTable(responseJSON, len){
 
 $(document).ready(() => { 
 	///configuration func
-	//getConfig();
+	getConfig();
 
 	///first chart temp/hum/press
 	chartInit();
@@ -554,7 +554,12 @@ $(document).ready(function () {
 
 	//table start/stop
 	$("#start4").click(startTimer4);
-    $("#stop4").click(stopTimer4);
+	$("#stop4").click(stopTimer4);
+	
+	$('#exercise3').on('click', function () {
+		$('#table').toggle('active');
+		
+	});
 
 	///temp,hum,press
 	$('#exercise1').on('click', function () {
@@ -566,6 +571,7 @@ $(document).ready(function () {
 		$('#datagrabber2').toggle('active');
 		
 	});
+
 	///joystick
 	$('#exercise1').on('click', function () {
 		$('#datagrabber3').toggle('active');
