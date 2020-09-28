@@ -25,14 +25,16 @@
 		
 		
 
+
+		<link rel="stylesheet" href="WebApp/styles/style.css">
+
+
+
 		<!-- Bootstrap CSS CDN -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<!-- Our Custom CSS -->
 		<link rel="stylesheet" href="style5.css">
-		<!--https://jqueryui.com/slider/#colorpicker -->
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
-
+		
 			
 	</head>
 
@@ -163,16 +165,22 @@
 
 			<!--led display -->
 			<div id="led">
-
-				<form method="post" action= "<?php echo $_SERVER['PHP_SELF'];?>" >
-					<!-- Name: <input type="text" name="fname">
-					<input type="submit"> -->
-					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
-					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
-					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
-					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
-					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
-					<button type=button name=10 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"><button type=button name=11 class="btn btn-primary"></button></br>
+				
+				<div id=color-select class="container-fluid">
+					<div class="row justify-content-center">
+						<h1>Choose Color</h1>
+					</div>
+					<div class="row justify-content-center" width="300px">
+						<input name="Color Picker" id="color-picker" type="color" onchange="pickColor()"/>
+					</div>
+				</div>
+				<div class="container-fluid" id=button-holder>
+				</div>
+				<div id=color-select class="container-fluid">
+					<div class="row justify-content-center">
+						<button id="reset-button">reset</button>
+					</div>
+				</div>
 
 			</div>
 			<!--led display -->
