@@ -1,10 +1,15 @@
-const sampleTimeSec = 0.1; 					///< sample time in sec
-const sampleTimeMsec = 1000*sampleTimeSec;	///< sample time in msec
-const maxSamplesNumber = 100;				///< maximum number of samples
+var sampleTimeSec = 0.1; 					///< sample time in sec
+var sampleTimeMsec = 1000*sampleTimeSec;	///< sample time in msec
+var maxSamplesNumber = 100;				///< maximum number of samples
 var lastTimeStamp; ///< most recent time stamp 
 var lastTimeStamp2; ///< most recent time stamp 
 var lastTimeStamp3; ///< most recent time stamp 
 
+///config var
+var ip;///< set IP
+var port;///< set Port
+var stime;///setsampling time
+var maxsamples;///set max number of samples
 
 
 var xdata; ///< x-axis labels array: time stamps
@@ -37,7 +42,36 @@ var chartContext3;
 var chart3;
 var timer3;
 
+var timer4;/// timer to table
+
+
 const url = 'http://192.168.1.3/chartdata.json'; ///< server app with JSON API
+const vurl = 'http://150.254.137.66/WebApp/scripts/config.php';
+const curl ='WebApp/scripts/config.json';
+//function to configure settings
+function getConfig(){
+	/// Send request
+	$.ajax( 
+	{	
+		url: curl,
+		type: 'GET',
+		dataType: 'json',
+		/// success callback
+		success: function(responseJSON, status, xhr) {	
+			console.log(JSON.stringify(responseJSON));
+			ip = responseJSON.ip;
+			port = responseJSON.port;
+			maxSamplesNumber = responseJSON.maxsamples;
+			sampleTimeSec = responseJSON.stime;
+			console.log(ip,port,maxSamplesNumber,sampleTimeSec);
+			
+		},
+		/// error callback
+		error: function(response){
+		alert(response)}
+	});
+}
+
 
 /**
 * @brief Generate random value.
@@ -56,7 +90,7 @@ function getRand() {
 
 ///chart 1 temp/hum/press update
 function addData(y){
-	if(ydata.length  > maxSamplesNumber)
+	if((ydata.length ) > maxSamplesNumber)
 	{
 		removeOldData1();
 		lastTimeStamp += sampleTimeSec;
@@ -70,7 +104,7 @@ function addData(y){
 
 ///chart 2 rpy update
 function addData2(y){
-	if(ydata_pitch.length || ydata_roll.length || ydata_pitch.length > maxSamplesNumber)
+	if((ydata_roll.length || ydata_pitch.length || ydata_yaw.length) > maxSamplesNumber)
 	{
 		removeOldData2();
 		lastTimeStamp2 += sampleTimeSec;
@@ -84,7 +118,7 @@ function addData2(y){
 
 ///chart 3 joystick
 function addData3(y){
-	if(ydata_x.length || ydata_y.length || ydata_mid.length > maxSamplesNumber)
+	if((ydata_x.length && ydata_x.length && ydata_mid.length) > maxSamplesNumber)
 	{
 		removeOldData3();
 		lastTimeStamp3 += sampleTimeSec;
@@ -95,6 +129,24 @@ function addData3(y){
 	ydata_mid.push(+y.mid);
 	chart3.update();
 }
+
+///Table get Data
+function getData4(){
+    $.ajax({
+        url : url,
+		type: 'GET',
+        dataType: 'json',
+		success: function(responseJSON, status, xhr) {
+			console.log(responseJSON);
+            var len = Object.keys(responseJSON).length;
+            generateTable(responseJSON, len)
+		},
+        error: function(){
+            console.log('error')
+        }
+	});
+}
+
 
 /**
 * @brief Remove oldest data point.
@@ -153,6 +205,16 @@ function stopTimer2(){
 function stopTimer3(){
 	clearInterval(timer3);
 }
+
+///timers to tabel
+function startTimer4(){
+	timer4 = setInterval(getData4, 100);
+}
+function stopTimer4(){
+	clearInterval(timer4);
+}
+
+
 
 /**
 * @brief Send HTTP GET request to IoT server
@@ -347,7 +409,7 @@ function chartInit2()
 		}
 	});
 
-	ydata_pitch = chart2.data.datasets[0].data;
+	ydata_roll = chart2.data.datasets[0].data;
 	xdata_rpy = chart2.data.labels;
 }
 
@@ -433,8 +495,29 @@ function chartInit3()
 }
 
 
+function generateTable(responseJSON, len){
+    var tableH = document.getElementById('table-holder');
+    tableH.removeChild(tableH.childNodes[0])
+    tableC = document.createElement('div')
+    tableC.setAttribute("id", 'table-content')
+    tableH.appendChild(tableC)
+    for(key in responseJSON){
+        if(responseJSON[key] != 0){
+
+            var tab = document.createElement("TR");
+            tab.innerHTML = "<h4>" + key + "</h>" + ": "  + responseJSON[key].toFixed(2);
+            document.getElementById('table-content').appendChild(tab);
+
+        }
+    }
+}
+
+
+
 
 $(document).ready(() => { 
+	///configuration func
+	//getConfig();
 
 	///first chart temp/hum/press
 	chartInit();
@@ -457,6 +540,9 @@ $(document).ready(() => {
 	$("#stop3").click(stopTimer3);
 	$("#sampletime3").text(sampleTimeMsec.toString());
 	$("#samplenumber3").text(maxSamplesNumber.toString());
+
+
+
 });
 
 
@@ -464,6 +550,12 @@ $(document).ready(() => {
 
 ///buttons
 $(document).ready(function () {
+
+
+	//table start/stop
+	$("#start4").click(startTimer4);
+    $("#stop4").click(stopTimer4);
+
 	///temp,hum,press
 	$('#exercise1').on('click', function () {
 		$('#datagrabber').toggle('active');
@@ -494,4 +586,60 @@ $(document).ready(function () {
 		$('#sidebar').toggleClass('active');
 		$(this).toggleClass('active');
 	});
+	///IP
+	$('#set_ip').on('click', function () {
+	$('#active_ip').toggle('active');
+	});
+	///PORT
+	$('#set_port').on('click', function () {
+		$('#active_port').toggle('active');
+	});
+	///Sample Time
+	$('#set_sample_time').on('click', function () {
+		$('#active_stime').toggle('active');
+	});
+	///Max Sample
+	$('#set_max_sample').on('click', function () {
+		$('#active_maxsample').toggle('active');
+	});
+
+
 });
+
+
+function subFunction(){
+	ip = document.getElementById("ip").value;
+	port = document.getElementById("port").value;
+	stime = document.getElementById("stime").value;
+	maxsamples = document.getElementById("maxsamples").value;
+	sendToServer()
+
+};
+
+function sendToServer(){
+var jsonObj = {ip: ip, port: port, stime: stime, maxsamples: maxsamples};
+var jsonStr = JSON.stringify(jsonObj);
+console.log(jsonStr);
+console.log(jsonObj);
+
+
+$.ajax({
+url: vurl,
+data: {data: jsonStr},
+type: 'POST',
+success: function(response) {
+  alert(response);
+  console.log('success');
+},
+error: function(response) {
+  alert(response);
+  console.log('fail');
+}
+
+});
+
+};
+
+window.onload = function (){
+$('#submitbtn').click(subFunction)
+}

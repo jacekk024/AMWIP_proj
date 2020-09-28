@@ -55,17 +55,19 @@
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Exercise</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
 							<li><a href="#" id="menu">Menu</a></li>
-                            <li><a href="#" id="exercise1">Exercise 1</a></li>
-							<li><a href="#" id="exercise2">Exercise 2</a></li>
-							<li><a href="#" id="exercise3">Exercise 3</a></li>
+                            <li><a href="#" id="exercise1">Chart</a></li>
+							<li><a href="#" id="exercise2">LED 2</a></li>
+							<li><a href="#" id="exercise3">Table</a></li>
+
                         </ul>
                     </li>
                     <li>						
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Tools</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li><a href="#">Server IP</a></li>
-                            <li><a href="#">Port Address</a></li>
-                            <li><a href="#">Sample time</a></li>
+                            <li><a href="#" id="set_ip">Server IP</a></li>
+                            <li><a href="#" id="set_port">Port address</a></li>
+							<li><a href="#" id="set_sample_time">Sample time</a></li>
+							<li><a href="#" id="set_max_sample">Max number of samples</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -138,6 +140,27 @@
 
 			<!-- Chart activities -->	
 
+
+			<!-- -->
+			<div id="table">
+				<div class="row justify-content-center">
+				<div id="table-holder">
+					<div id = "table-content">
+	
+					</div>
+				</div>
+	
+			</div>
+			<div class="row justify-content-center">
+					<button id="start4">start</button><button id="stop4">stop</button>
+			</div>
+
+
+
+			</div>
+
+
+
 			<!--led display -->
 			<div id="led">
 
@@ -154,9 +177,36 @@
 			</div>
 			<!--led display -->
 			<!--Settings-->
-			<div id="settings">
-				
+		
+			<div id="active_ip">
+				<div class="row justify-content-center">
+					<label for="ip">IP ADDRESS:</label><br/>
+					<input id="ip"></input><br/>
+					<input id="submitbtn" type="button"  value="submit"></input>
+				</div>
 			</div>
+			<div id="active_port">
+				<div class="row justify-content-center">
+					<label for="port">PORT ADDRESS:</label><br/>
+					<input id="port"></input><br/>
+					<input id="submitbtn" type="button"  value="submit"></input>
+				</div>
+			</div>
+			<div id="active_stime">
+				<div class="row justify-content-center">
+					<label for="stime">SAMPLING TIME:</label><br/>
+					<input id="stime"></input><br/>
+					<input id="submitbtn" type="button"  value="submit"></input>
+				</div>
+			</div>
+			<div id="active_maxsample">
+				<div class="row justify-content-center">
+					<label for="maxsamples">MAX NUMBER OF SAMPLES:</label><br/>
+					<input id="maxsamples"></input><br/>
+					<input id="submitbtn" type="button"  value="submit"></input>
+				</div>
+			</div>
+
 			<!--Settings-->
 
 		</div>
